@@ -1,0 +1,78 @@
+<div class="container py-4 py-md-5">
+  <h2 class="fw-bold mb-4 text-center text-md-start">Checkout</h2>
+
+  <form id="checkoutForm" action="/checkout/create-order" method="post">
+    <div class="row g-4">
+
+      <!-- SHIPPING ADDRESS -->
+      <div class="col-12 col-lg-7">
+        <div class="card shadow-sm border-0 p-3 p-md-4">
+          <h5 class="fw-bold mb-3">Shipping Address</h5>
+
+          <div class="row g-2">
+            <div class="col-12">
+              <input class="form-control" name="fullName" placeholder="Full Name" required />
+            </div>
+
+            <div class="col-12">
+              <input class="form-control" name="phone" placeholder="Phone Number" required />
+            </div>
+
+            <div class="col-12">
+              <input class="form-control" name="addressLine1" placeholder="Address Line 1" required />
+            </div>
+
+            <div class="col-12">
+              <input class="form-control" name="addressLine2" placeholder="Address Line 2" />
+            </div>
+
+            <div class="col-6">
+              <input class="form-control" name="city" placeholder="City" required />
+            </div>
+
+            <div class="col-6">
+              <input class="form-control" name="state" placeholder="State" required />
+            </div>
+
+            <div class="col-12">
+              <input class="form-control" name="pincode" placeholder="Pincode" required />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <div class="col-12 col-lg-5">
+        <div class="card border-0 shadow-sm p-3 p-md-4 checkout-summary">
+          <h5 class="fw-bold mb-3">Order Summary</h5>
+
+          <% cart.forEach(item => { %>
+            <div class="d-flex justify-content-between mb-2">
+              <span>
+                <%= item.product.name %> × <%= item.quantity %>
+              </span>
+              <span>
+                ₹<%= item.product.price * item.quantity %>
+              </span>
+            </div>
+          <% }) %>
+
+          <hr />
+
+          <p class="d-flex justify-content-between fw-semibold mb-3">
+            <span>Total</span>
+            <span>₹<%= total %></span>
+          </p>
+
+          <button
+            id="payBtn"
+            class="btn btn-dark w-100 py-2"
+          >
+            Pay with UPI
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

@@ -1,0 +1,81 @@
+<div class="container py-5" style="max-width: 650px;">
+  <h3 class="fw-bold mb-2 text-center">Complete Your Payment</h3>
+  <p class="text-muted text-center mb-4">
+    Pay securely using UPI (QR or UPI ID)
+  </p>
+
+  <!-- PAYMENT BOX -->
+  <div class="card shadow-sm border-0 p-4">
+
+    <!-- QR SECTION -->
+    <div class="text-center mb-4">
+      <img
+        src="/image/QR.jpeg"
+        alt="UPI QR Code"
+        style="width: 260px;"
+        class="mb-3"
+      />
+
+      <p class="mb-1 text-muted">Scan & Pay using any UPI app</p>
+
+      <div class="upi-id-box mt-3">
+        <span>UPI ID:</span>
+        <strong id="upiId">mdshahidiqbalkhanthechamp@oksbi</strong>
+        <button
+          type="button"
+          onclick="copyUPI()"
+          class="btn btn-sm btn-outline-dark ms-2"
+        >
+          Copy
+        </button>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- PAYMENT CONFIRMATION FORM -->
+    <form
+      action="/payment/upi/<%= order._id %>"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label class="form-label">UPI Transaction ID (UTR)</label>
+        <input
+          type="text"
+          name="upiTransactionId"
+          class="form-control"
+          placeholder="Eg: 329812345678"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Upload Payment Screenshot</label>
+        <input
+          type="file"
+          name="paymentProof"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <button class="btn btn-dark w-100 mt-2">
+        Submit Payment Proof
+      </button>
+    </form>
+
+  </div>
+
+  <p class="text-muted text-center mt-3" style="font-size:14px;">
+    Your order will be confirmed after payment verification.
+  </p>
+</div>
+
+<script>
+  function copyUPI() {
+    const upi = document.getElementById('upiId').innerText;
+    navigator.clipboard.writeText(upi);
+    alert('UPI ID copied');
+  }
+</script>

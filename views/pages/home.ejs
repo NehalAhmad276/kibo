@@ -1,0 +1,161 @@
+<div class="card text-bg-dark border-0 rounded-0">
+  <img
+    src="/image/homePagePoster.jpeg"
+    class="card-img hero-main-img"
+    alt="Hero"
+  />
+  <div class="card-img-overlay hero d-flex align-items-center justify-content-center">
+    <a href="/products" class="btn hero-btn">Shop Now</a>
+  </div>
+</div>
+
+<!-- PERFUME SECTION -->
+<section class="homepage-product-section container py-4 py-md-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0">Perfumes</h3>
+    <a class="btn btn-link noLinkDecoretion" href="/products">View All</a>
+  </div>
+
+  <div class="row g-3 g-md-4">
+    <% products.slice(0, 6).forEach(product => { %>
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm product-card h-100">
+          <a href="/products/<%= product._id %>" class="text-decoration-none text-dark">
+            <img
+              src="<%= product.images[0] %>"
+              class="card-img-top product-img"
+              alt="<%= product.name %>"
+            />
+            <div class="card-body text-center">
+              <h6 class="fw-bold mb-1"><%= product.name %></h6>
+              <p class="mb-0 fw-semibold">₹ <%= product.price %></p>
+            </div>
+          </a>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<!-- HERO SLIDER -->
+<!-- <section class="hero-slider">
+
+  <div class="hero-slide active"
+       style="background-image: url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1600&q=80');">
+    <div class="hero-content">
+      <h1>Men's Collection</h1>
+      <p>Discover bold, elegant fragrances for him</p>
+      <a href="/products?category=Men" class="btn hero-btn ">Shop Men</a>
+    </div>
+  </div>
+
+  <div class="hero-slide"
+       style="background-image: url('https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=1600&q=80');">
+    <div class="hero-content">
+      <h1>Women's Collection</h1>
+      <p>Graceful scents crafted for modern elegance</p>
+      <a href="/products?category=Women" class="hero-btn btn">Shop Women</a>
+    </div>
+  </div>
+
+  <div class="hero-slide"
+       style="background-image: url('https://images.unsplash.com/photo-1587017539504-67cfbddac569?auto=format&fit=crop&w=1600&q=80');">
+    <div class="hero-content">
+      <h1>Unisex Collection</h1>
+      <p>Timeless fragrances beyond boundaries</p>
+      <a href="/products?category=Unisex" class="hero-btn btn">Shop Unisex</a>
+    </div>
+  </div>
+  ARROWS
+  <button class="hero-arrow left" onclick="prevSlide()">&#10094;</button>
+  <button class="hero-arrow right" onclick="nextSlide()">&#10095;</button>
+</section> -->
+
+<section class="hero-slider">
+
+  <div class="hero-slide active">
+    <img src="/image/men.png"
+         alt="Men's Collection">
+    <div class="hero-content">
+      <h1>Men's Collection</h1>
+      <p>Discover bold, elegant fragrances for him</p>
+      <a href="/products?category=Men" class="btn hero-btn">Shop Men</a>
+    </div>
+  </div>
+
+  <div class="hero-slide">
+    <img src="/image/women.png"
+         alt="Women's Collection">
+    <div class="hero-content">
+      <h1>Women's Collection</h1>
+      <p>Graceful scents crafted for modern elegance</p>
+      <a href="/products?category=Women" class="btn hero-btn">Shop Women</a>
+    </div>
+  </div>
+
+  <div class="hero-slide">
+    <img src="/image/uni.png"
+         alt="Unisex Collection">
+    <div class="hero-content">
+      <h1>Unisex Collection</h1>
+      <p>Timeless fragrances beyond boundaries</p>
+      <a href="/products?category=Unisex" class="btn hero-btn">Shop Unisex</a>
+    </div>
+  </div>
+
+  <!-- Arrows -->
+  <button class="hero-arrow left" onclick="prevSlide()">&#10094;</button>
+  <button class="hero-arrow right" onclick="nextSlide()">&#10095;</button>
+
+</section>
+
+
+<!-- ATTAR SECTION -->
+<section class="homepage-product-section container py-4 py-md-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0">Attar</h3>
+    <a class="btn btn-link noLinkDecoretion" href="/attars">View All</a>
+  </div>
+
+  <div class="row g-3 g-md-4">
+    <% attars.slice(0, 6).forEach(attar => { %>
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm product-card h-100">
+          <a href="/products/<%= attar._id %>" class="text-decoration-none text-dark">
+            <img
+              src="<%= attar.images[0] %>"
+              class="card-img-top product-img"
+              alt="<%= attar.name %>"
+            />
+            <div class="card-body text-center">
+              <h6 class="fw-bold mb-1"><%= attar.name %></h6>
+              <p class="mb-0 fw-semibold">₹ <%= attar.price %></p>
+            </div>
+          </a>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+
+<script>
+   let currentSlide = 0;
+  const slides = document.querySelectorAll('.hero-slide');
+
+  function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[index].classList.add('active');
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  function prevSlide() {
+    currentSlide =
+      (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+  }
+</script>

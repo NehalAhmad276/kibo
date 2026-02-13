@@ -1,0 +1,44 @@
+<!-- ATTAR HERO -->
+<section class="attar-hero text-center text-white d-flex align-items-center">
+  <div class="container">
+    <h1 class="fw-bold mb-2">Pure Attars</h1>
+    <p class="mt-2 mb-0">
+      Traditional oil-based fragrances with timeless elegance
+    </p>
+  </div>
+</section>
+<!-- ATTAR LIST -->
+<section class="container py-4 py-md-5">
+  <div class="row g-3 g-md-4">
+
+    <% attars.forEach(attar => { %>
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100 product-card">
+
+          <a
+            href="/products/<%= attar._id %>"
+            class="text-decoration-none text-dark"
+          >
+            <img
+              src="<%= attar.images[0] %>"
+              class="card-img-top product-img"
+              alt="<%= attar.name %>"
+            />
+
+            <div class="card-body text-center">
+              <h6 class="fw-semibold mb-1"><%= attar.name %></h6>
+              <p class="text-muted mb-1"><%= attar.brand %></p>
+              <p class="fw-bold mb-2">₹<%= attar.price %></p>
+
+              <span class="btn btn-outline-dark btn-sm">
+                View Details
+              </span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    <% }) %>
+
+  </div>
+</section>

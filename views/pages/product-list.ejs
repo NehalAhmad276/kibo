@@ -1,0 +1,51 @@
+ <!-- MOBILE FILTER BAR -->
+<div class="container-fluid d-md-none border-bottom">
+  <div class="filter-mobile">
+    <a href="/products" class="<%= activeCategory === 'All' ? 'active' : '' %>">All</a>
+    <a href="/products?category=Men" class="<%= activeCategory === 'Men' ? 'active' : '' %>">Men</a>
+    <a href="/products?category=Women" class="<%= activeCategory === 'Women' ? 'active' : '' %>">Women</a>
+    <a href="/products?category=Unisex" class="<%= activeCategory === 'Unisex' ? 'active' : '' %>">Unisex</a>
+  </div>
+</div>
+
+<div class="container py-4 py-md-5">
+  <div class="row g-4">
+
+    <!-- DESKTOP FILTER SIDEBAR -->
+    <div class="col-md-3 col-lg-2 d-none d-md-block">
+      <h6 class="fw-semibold mb-3">Category</h6>
+
+      <ul class="list-unstyled category-links">
+        <li><a href="/products" class="<%= activeCategory === 'All' ? 'active' : '' %>">All</a></li>
+        <li><a href="/products?category=Men" class="<%= activeCategory === 'Men' ? 'active' : '' %>">Men</a></li>
+        <li><a href="/products?category=Women" class="<%= activeCategory === 'Women' ? 'active' : '' %>">Women</a></li>
+        <li><a href="/products?category=Unisex" class="<%= activeCategory === 'Unisex' ? 'active' : '' %>">Unisex</a></li>
+      </ul>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="col-12 col-md-9 col-lg-10">
+      <div class="row g-3 g-md-4">
+        <% products.forEach(product => { %>
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm product-card">
+              <img src="<%= product.images[0] %>" class="card-img-top" />
+
+              <div class="card-body text-center">
+                <h6 class="fw-bold mb-1"><%= product.name %></h6>
+                <p class="text-muted mb-1"><%= product.brand %></p>
+                <p class="fw-semibold mb-2">₹<%= product.price %></p>
+
+                <a href="/products/<%= product._id %>" class="btn btn-outline-dark btn-sm">
+                  View
+                </a>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+
+  </div>
+</div>
+

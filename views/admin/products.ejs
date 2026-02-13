@@ -1,0 +1,52 @@
+<h2 class="fw-bold mb-4">Products</h2>
+
+<a href="/admin/products/add" class="btn btn-dark mb-4">
+  + Add New Product
+</a>
+
+<table class="table table-bordered table-hover bg-white shadow-sm">
+  <thead class="table-dark">
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Brand</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% products.forEach(product => { %>
+      <tr>
+        <td style="width:100px">
+          <img
+            src="<%= product.images[0] %>"
+            style="height:60px; width:60px; object-fit:cover"
+          />
+        </td>
+
+        <td><%= product.name %></td>
+        <td><%= product.brand %></td>
+        <td>₹<%= product.price %></td>
+        <td><%= product.stock %></td>
+
+        <td>
+          <form
+            action="/admin/products/delete/<%= product._id %>"
+            method="POST"
+            onsubmit="return confirm('Delete this product?')"
+          >
+            <button class="btn btn-sm btn-danger">
+              Delete
+            </button>
+          </form>
+
+          <a href="/admin/products/edit/<%= product._id %>" class="btn btn-sm btn-outline-dark me-2">
+            Edit
+          </a>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

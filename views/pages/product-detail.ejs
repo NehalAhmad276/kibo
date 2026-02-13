@@ -1,0 +1,74 @@
+<div class="container py-4 py-md-5">
+  <div class="row g-4 align-items-start">
+
+    <!-- PRODUCT IMAGES -->
+    <div class="col-12 col-md-6">
+
+      <!-- MAIN IMAGE -->
+      <div class="mb-3">
+        <img
+          id="mainImage"
+          src="<%= product.images[0] %>"
+          class="img-fluid w-100 border rounded product-main-img"
+          alt="<%= product.name %>"
+        />
+      </div>
+
+      <!-- THUMBNAILS -->
+      <div class="d-flex gap-2 overflow-auto product-thumbs">
+        <% product.images.forEach(img => { %>
+          <img
+            src="<%= img %>"
+            onclick="document.getElementById('mainImage').src=this.src"
+            class="border rounded thumb-img"
+            alt="Thumbnail"
+          />
+        <% }) %>
+      </div>
+
+    </div>
+
+    <!-- PRODUCT INFO -->
+    <div class="col-12 col-md-6">
+
+      <h2 class="fw-bold mb-1"><%= product.name %></h2>
+      <p class="text-muted mb-2"><%= product.brand %></p>
+
+      <h4 class="fw-semibold mb-3">₹<%= product.price %></h4>
+
+      <p class="mb-2">
+        <strong>Size:</strong> <%= product.size %>
+      </p>
+
+      <p class="text-secondary mb-4">
+        <%= product.description %>
+      </p>
+
+      <!-- ADD TO CART -->
+      <form
+        action="/cart/add"
+        method="POST"
+        class="row g-2 align-items-center"
+      >
+        <input type="hidden" name="productId" value="<%= product._id %>" />
+
+        <div class="col-4 col-md-3">
+          <input
+            type="number"
+            name="quantity"
+            value="1"
+            min="1"
+            class="form-control"
+          />
+        </div>
+
+        <div class="col-8 col-md-6">
+          <button class="btn btn-dark w-100">
+            Add to Cart
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

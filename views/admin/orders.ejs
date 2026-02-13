@@ -1,0 +1,88 @@
+<h2 class="fw-bold mb-4">Orders</h2>
+
+<table class="table table-bordered table-hover bg-white shadow-sm">
+  <thead class="table-dark">
+    <tr>
+      <th>Order ID</th>
+      <th>User</th>
+      <th>Total</th>
+      <th>Status</th>
+      <th>Items</th>
+      <th>Order Detail</th>
+      <th>Update Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% orders.forEach(order => { %>
+      <tr>
+        <td><%= order._id %></td>
+
+        <td>
+          <%= order.user.name %><br />
+          <small class="text-muted"><%= order.user.email %></small>
+        </td>
+
+        <td>₹<%= order.totalAmount %></td>
+
+        <td>
+          <span class="badge 
+            <%= order.status === 'Pending' ? 'bg-secondary' :
+                order.status === 'Paid' ? 'bg-primary' :
+                order.status === 'Shipped' ? 'bg-warning' :
+                'bg-success' %>">
+            <%= order.status %>
+          </span>
+        </td>
+
+        <td>
+          <ul class="list-unstyled mb-0">
+            <% order.items.forEach(item => { %>
+              <li>
+                <% if (item.product) { %>
+                  <%= item.product.name %> × <%= item.quantity %>
+                      <% } else { %>
+                        <span class="text-danger">Product removed</span> × <%= item.quantity %>
+                          <% } %>
+                
+              </li>
+            <% }) %>
+          </ul>
+        </td>
+
+        <td>
+            <a href="/admin/orders/<%= order._id %>" class="btn btn-sm btn-outline-primary mb-1">
+                View
+            </a>
+        </td>
+
+        <td>
+          <form
+            action="/admin/orders/update/<%= order._id %>"
+            method="POST"
+            class="d-flex gap-2"
+          >
+            <select name="status" class="form-select form-select-sm">
+              <option value="Pending" <%= order.status === 'Pending' ? 'selected' : '' %>>
+                Pending
+              </option>
+              <option value="Paid" <%= order.status === 'Paid' ? 'selected' : '' %>>
+                Paid
+              </option>
+              <option value="Shipped" <%= order.status === 'Shipped' ? 'selected' : '' %>>
+                Shipped
+              </option>
+              <option value="Delivered" <%= order.status === 'Delivered' ? 'selected' : '' %>>
+                Delivered
+              </option>
+            </select>
+
+            <button class="btn btn-sm btn-dark">
+              Update
+            </button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
