@@ -78,7 +78,7 @@ router.post(
       };
 
       await axios.post(
-        'http://localhost:5000/api/products',
+        '/api/products',
         payload,
         {
           headers: {
@@ -107,7 +107,7 @@ router.post('/products/delete/:id', adminGuard, async (req, res) => {
       await deleteFromCloudinary(product.images[0]);
     }
   await axios.delete(
-    `http://localhost:5000/api/products/${req.params.id}`,
+    `/api/products/${req.params.id}`,
     {
       headers: {
         Authorization: `Bearer ${token}`
@@ -146,7 +146,7 @@ router.post(
       }
 
       await axios.put(
-        `http://localhost:5000/api/products/${req.params.id}`,
+        `/api/products/${req.params.id}`,
         updatedData,
         {
           headers: {
@@ -183,7 +183,7 @@ router.post('/orders/update/:id', adminGuard, async (req, res) => {
     const token = req.cookies.token;
 
     await axios.put(
-      `http://localhost:5000/api/orders/admin/${req.params.id}/status`,
+      `/api/orders/admin/${req.params.id}/status`,
       { status: req.body.status },
       {
         headers: {

@@ -6,6 +6,7 @@ const axios = require('axios');
 const Order = require('../models/Order'); 
 const User = require('../models/User');
 const viewAuthMiddleware = require('../middleware/viewAuthMiddleware');
+const { none } = require('../middleware/uploadMiddleware');
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -70,7 +71,7 @@ router.post('/cart/add', async (req, res) => {
     if (!token) return res.redirect('/login');
 
     await axios.post(
-      'http://localhost:5000/api/cart/add',
+      '/api/cart/add',
       {
         productId: req.body.productId,
         quantity: Number(req.body.quantity)
@@ -95,7 +96,7 @@ router.get('/cart', async (req, res) => {
     if (!token) return res.redirect('/login');
 
     const response = await axios.get(
-      'http://localhost:5000/api/cart',
+      '/api/cart',
       {
         headers: { Authorization: `Bearer ${token}` }
       }
@@ -123,7 +124,7 @@ router.post('/cart/update', async (req, res) => {
   const token = req.cookies?.token;
 
   await axios.put(
-    'http://localhost:5000/api/cart/update',
+    '/api/cart/update',
     req.body,
     {
       headers: { Authorization: `Bearer ${token}` }
@@ -138,7 +139,7 @@ router.post('/cart/remove/:productId', async (req, res) => {
   const token = req.cookies?.token;
 
   await axios.delete(
-    `http://localhost:5000/api/cart/remove/${req.params.productId}`,
+    `/api/cart/remove/${req.params.productId}`,
     {
       headers: { Authorization: `Bearer ${token}` }
     }
@@ -161,7 +162,7 @@ router.get('/signup', (req, res) => {
 router.post('/signup', async (req, res) => {
   // console.log('SIGNUP BODY:', req.body);
   try {
-    await axios.post('http://localhost:5000/api/auth/register', req.body);
+    await axios.post('/api/auth/register', req.body);
     res.redirect('/login');
   } catch (error) {
     res.redirect('/signup');
@@ -182,8 +183,8 @@ router.post('/login', async (req, res) => {
     // });
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: true,
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
 
@@ -206,7 +207,7 @@ router.get('/checkout', async (req, res) => {
   const token = req.cookies?.token;
   if (!token) return res.redirect('/login');
 
-  const cartRes = await axios.get('http://localhost:5000/api/cart', {
+  const cartRes = await axios.get('/api/cart', {
     headers: { Authorization: `Bearer ${token}` }
   });
 
@@ -250,7 +251,7 @@ router.post('/checkout/create-order', async (req, res) => {
 
     // 1️⃣ Create order (NO PAYMENT GATEWAY)
     const orderRes = await axios.post(
-      'http://localhost:5000/api/orders',
+      '/api/orders',
       {
         shippingAddress,
         paymentMethod: 'UPI'
@@ -283,7 +284,7 @@ router.get('/orders', async (req, res) => {
   const token = req.cookies.token;
 
   const response = await axios.get(
-    'http://localhost:5000/api/orders/my-orders',
+    '/api/orders/my-orders',
     { headers: { Authorization: `Bearer ${token}` } }
   );
 

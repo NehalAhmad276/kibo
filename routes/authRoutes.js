@@ -29,7 +29,7 @@ router.post('/forgot-password', async (req, res) => {
   user.resetPasswordExpires = Date.now() + 15 * 60 * 1000; // 15 min
   await user.save();
 
-  const resetUrl = `http://localhost:5000/reset-password/${token}`;
+  const resetUrl = `/reset-password/${token}`;
 
   // 🔔 Send email here (example below)
   // console.log('RESET LINK:', resetUrl);
