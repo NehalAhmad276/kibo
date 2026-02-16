@@ -178,13 +178,11 @@ router.post('/login', async (req, res) => {
       req.body
     );
 
-    // res.cookie('token', response.data.token, {
-    //   httpOnly: true
-    // });
     res.cookie('token', token, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      domain: 'xn--kib-sxa.com',
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
 
