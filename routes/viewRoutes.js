@@ -173,7 +173,7 @@ router.post('/login', async (req, res) => {
   // console.log('LOGIN BODY:', req.body);
   try {
     const response = await axios.post(
-      'http://localhost:5000/api/auth/login',
+      '/api/auth/login',
       req.body
     );
 
