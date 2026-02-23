@@ -174,7 +174,7 @@ router.post('/login', async (req, res) => {
   // console.log('LOGIN BODY:', req.body);
   try {
     const response = await axios.post(
-      '/api/auth/login',
+      `${process.env.BASE_URL}/api/auth/login`,
       req.body
     );
 
