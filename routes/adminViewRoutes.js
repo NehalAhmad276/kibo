@@ -78,7 +78,7 @@ router.post(
       };
 
       await axios.post(
-        '/api/products',
+        `${process.env.BASE_URL}/api/products`,
         payload,
         {
           headers: {
@@ -107,7 +107,7 @@ router.post('/products/delete/:id', adminGuard, async (req, res) => {
       await deleteFromCloudinary(product.images[0]);
     }
   await axios.delete(
-    `/api/products/${req.params.id}`,
+    `${process.env.BASE_URL}/api/products/${req.params.id}`,
     {
       headers: {
         Authorization: `Bearer ${token}`
@@ -146,7 +146,7 @@ router.post(
       }
 
       await axios.put(
-        `/api/products/${req.params.id}`,
+        `${process.env.BASE_URL}/api/products/${req.params.id}`,
         updatedData,
         {
           headers: {
@@ -183,7 +183,7 @@ router.post('/orders/update/:id', adminGuard, async (req, res) => {
     const token = req.cookies.token;
 
     await axios.put(
-      `/api/orders/admin/${req.params.id}/status`,
+      `${process.env.BASE_URL}/api/orders/admin/${req.params.id}/status`,
       { status: req.body.status },
       {
         headers: {

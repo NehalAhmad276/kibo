@@ -71,7 +71,7 @@ router.post('/cart/add', async (req, res) => {
     if (!token) return res.redirect('/login');
 
     await axios.post(
-      '/api/cart/add',
+      `${process.env.BASE_URL}/api/cart/add`,
       {
         productId: req.body.productId,
         quantity: Number(req.body.quantity)
@@ -96,7 +96,7 @@ router.get('/cart', async (req, res) => {
     if (!token) return res.redirect('/login');
 
     const response = await axios.get(
-      '/api/cart',
+      `${process.env.BASE_URL}/api/cart`,
       {
         headers: { Authorization: `Bearer ${token}` }
       }
@@ -124,7 +124,7 @@ router.post('/cart/update', async (req, res) => {
   const token = req.cookies?.token;
 
   await axios.put(
-    '/api/cart/update',
+    `${process.env.BASE_URL}/api/cart/update`,
     req.body,
     {
       headers: { Authorization: `Bearer ${token}` }
@@ -139,7 +139,7 @@ router.post('/cart/remove/:productId', async (req, res) => {
   const token = req.cookies?.token;
 
   await axios.delete(
-    `/api/cart/remove/${req.params.productId}`,
+    `${process.env.BASE_URL}/api/cart/remove/${req.params.productId}`,
     {
       headers: { Authorization: `Bearer ${token}` }
     }
@@ -162,7 +162,7 @@ router.get('/signup', (req, res) => {
 router.post('/signup', async (req, res) => {
   // console.log('SIGNUP BODY:', req.body);
   try {
-    await axios.post('/api/auth/register', req.body);
+    await axios.post(`${process.env.BASE_URL}/api/auth/register`, req.body);
     res.redirect('/login');
   } catch (error) {
     res.redirect('/signup');
@@ -208,7 +208,7 @@ router.get('/checkout', async (req, res) => {
   const token = req.cookies?.token;
   if (!token) return res.redirect('/login');
 
-  const cartRes = await axios.get('/api/cart', {
+  const cartRes = await axios.get(`${process.env.BASE_URL}/api/cart`, {
     headers: { Authorization: `Bearer ${token}` }
   });
 
@@ -252,7 +252,7 @@ router.post('/checkout/create-order', async (req, res) => {
 
     // 1️⃣ Create order (NO PAYMENT GATEWAY)
     const orderRes = await axios.post(
-      '/api/orders',
+      `${process.env.BASE_URL}/api/orders`,
       {
         shippingAddress,
         paymentMethod: 'UPI'
@@ -285,7 +285,7 @@ router.get('/orders', async (req, res) => {
   const token = req.cookies.token;
 
   const response = await axios.get(
-    '/api/orders/my-orders',
+    `${process.env.BASE_URL}/api/orders/my-orders`,
     { headers: { Authorization: `Bearer ${token}` } }
   );
 
